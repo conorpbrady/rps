@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type='text/javascript'>
+
+rounds = 0;
+wins = 0;
+draws = 0;
+losses = 0;
+
+function determineWinner(player, computer) {
+  if(player == "rock")
+  {
+    switch (computer) {
+      case "rock":
+        draws++
+        break;
+      case "scissors":
+        wins++
+        break;
+      case "paper":
+      losses++
+        break;
+      default:
+    }
+  }
+
+  else if(player == "paper")
+  {
+    switch (computer) {
+      case "rock":
+        wins++
+        break;
+      case "scissors":
+        losses++
+        break;
+      case "paper":
+        draws++
+        break;
+      default:
+    }
+  }
+  else if(player == "scissors")
+  {
+    switch (computer) {
+      case "rock":
+        losses++
+        break;
+      case "scissors":
+        wins++
+        break;
+      case "paper":
+        draws++
+        break;
+      default:
+    }
+
+  }
+  displayRoundResults(player,computer);
+  if(rounds==5) {displayResults();}
+}
+function computerPlay() {
+  r = Math.floor(Math.random() * 3) + 1
+  switch(r) {
+    case 1:
+      return "rock"
+      break;
+    case 2:
+      return "paper"
+      break;
+    case 3:
+      return "scissors"
+      break;
+  }
+
+}
+
+function playRound(player) {
+  rounds++
+  determineWinner(player, computerPlay())
+}
+
+
+
+</script>
+</head>
+
+<body>
+<div id="containter">
+  <div id="inputs">
+    <button class="btn" id="scissors">Scissors</button>
+    <button class="btn" id="rock">Rock</button>
+    <button class="btn" id="paper">Paper</button>
+</div>
+
+<div id="results">
+<p id="roundText"></p> <br />
+<p id="total"></p>
+
+</div>
+
+
+
+</div>
+
+
+<script>
+
+var buttons = document.querySelectorAll(".btn");
+
+buttons.forEach((button) => {
+  button.addEventListener('click', (e) => {
+    playRound(button.id);
+  });
+});
+
+
+function displayRoundResults(player, computer) {
+  roundText = document.querySelector("#roundText");
+  roundText.textContent = "Round: " + rounds + " | " +
+                      player + "/" + computer;
+}
+function displayResults() {
+  hideInputs();
+  totalText = document.querySelector("#total");
+  totalText.textContent = wins + " wins, " +
+                    losses + " losses, " +
+                    draws + " draws."
+}
+
+function hideInputs() {
+  inputs = document.querySelector('#inputs');
+  inputs.style.cssText = "display: none"
+}
+
+</script>
+</body>
+
+</html>
